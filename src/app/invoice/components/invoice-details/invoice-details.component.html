@@ -1,0 +1,160 @@
+<form class="container" [formGroup]="invoiceForm" (ngSubmit)="onInvoiceSubmit()">
+    <br/>
+    <h3><u> {{pagetitle}} </u> </h3><br/>
+    <div class="card" style="width: 1200px">
+        <div class="card-body">
+
+            <div class="row">
+                <!-- <div class="col-lg-6">
+                    <div class="form-group" >
+                        <label>Invoice No</label>
+                        <span class="text-danger">*</span>
+                        <input formControlName="invoiceNo" class="form-control"/>
+                    </div>
+                </div> -->
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label>Invoice Date</label>
+                        <span class="text-danger">*</span>
+                        <input type="date" formControlName="invoiceDate" class="form-control" />
+                        <span class="text-danger"
+                                *ngIf="(invoiceFormControl.invoiceDate.touched) && invoiceFormControl.invoiceDate.errors?.['required']">
+                                Date is required
+                        </span>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label>Name</label>
+                        <span class="text-danger">*</span>
+                        <input type="text" formControlName="name" class="form-control" />
+                        <span class="text-danger"
+                                *ngIf="(invoiceFormControl.name.touched) && invoiceFormControl.name.errors?.['required']">
+                                Name is required
+                        </span>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label>Email</label>
+                        <span class="text-danger">*</span>
+                        <input type="email" formControlName="email" class="form-control" />
+                        <span class="text-danger"
+                            *ngIf="(invoiceFormControl.email.touched) && invoiceFormControl.email.errors?.['required']">
+                            Email is required
+                        </span>
+                        <span class="text-danger"
+                            *ngIf="invoiceFormControl.email.touched && invoiceFormControl.email.errors?.['email']">
+                            Enter a valid email address
+                        </span>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label>Phone no.</label>
+                        <span class="text-danger">*</span>
+                        <input type="number" formControlName="phone" class="form-control" />
+                        <span class="text-danger"
+                            *ngIf="(invoiceFormControl.phone.touched) && invoiceFormControl.phone.errors?.['required']">
+                            Phone number is required
+                        </span>
+                        <span class="text-danger"
+                            *ngIf="invoiceFormControl.phone.touched && invoiceFormControl.phone.errors?.['pattern'] ">
+                            Enter a valid phone number
+                        </span>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        <label>Gender</label>
+                        <span class="text-danger">*</span><br/>
+                        <input class="form-group-input" type="radio" formControlName="gender" [value]="true"> Male<br/>
+                        <input class="form-group-input" type="radio" formControlName="gender" [value]="false"> Female
+                        <span class="text-danger"
+                            *ngIf="(invoiceFormControl.gender.touched) && invoiceFormControl.gender.errors?.['required']">
+                            Gender is required
+                        </span>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div formGroupName="hobbies">
+                        <label>Hobbies</label>
+                        <span class="text-danger"></span><br/>
+                        <input class="form-group-input" type="checkbox" formControlName="singing"> Singing<br/>
+                        <input class="form-group-input" type="checkbox" formControlName="dancing"> Dancing
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label>Address</label>
+                        <textarea formControlName="addressLine1" class="form-control"></textarea>
+                    </div>
+                </div>
+
+            </div>
+            <br>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <table class="table table-bordered" formArrayName="details">
+
+                        <thead class="bg-primary text-white">
+                            <tr>
+                                <td>Product ID </td>
+                                <td>Name</td>
+                                <td>Quantity</td>
+                                <td>Rate</td>
+                                <td>Amount</td>
+                                <td>Action</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of invoiceproducts.controls;let i=index" [formGroupName]="i">
+                                <td>{{i+1}}</td>
+                                <td>
+                                    <input class="form-control" formControlName="name">
+                                </td>
+                                <td>
+                                    <input class="form-control" (change)="itemCalculation(i)" formControlName="Quantity">
+                                </td>
+                                <td>
+                                    <input class="form-control" (change)="itemCalculation(i)" formControlName="rate">
+                                <td>
+                                    <input class="form-control" formControlName="amount">
+                                </td>
+                                <td>
+                                    <a (click)="removeProduct(i)" class="btn btn-danger">Remove</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="6">
+                                    <a (click)="addNewProduct()"  class="btn btn-primary">Add Product</a>
+                                </td>
+                            </tr>
+                        </tfoot>
+
+                    </table>
+                </div>
+
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        <label><b>Total</b></label>
+                        <input formControlName="total" class="form-control">
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <br>
+                    <button [disabled]="invoiceForm.invalid" routerLink="invoice-list" class="btn btn-success" type="submit" style="width:10%;">Save</button>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</form>

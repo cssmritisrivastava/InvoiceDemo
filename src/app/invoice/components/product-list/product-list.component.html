@@ -1,0 +1,28 @@
+<div class="card" style="width: 1200px">
+    <h1 style="text-align: center;"><u>Product List </u> </h1>
+    <div class="card-body">
+
+        <table class="table table-bordered">
+            <thead class="bg-dark text-white">
+                <tr>
+                    <td>Product Id</td>
+                    <td>Name</td>
+                    <td>quantity</td>
+                    <td>Rate</td>
+                </tr>
+            </thead>
+            <tbody *ngFor="let item of invoiceData.data.items">
+                <tr>
+                    <ng-template [ngIf]="item.invoiceId==invoiceid">
+                        <td>{{item.id}}</td>
+                        <td>{{item.name}}</td>
+                        <td>{{item.quantity}}</td>
+                        <td>{{item.rate}}</td>
+                    </ng-template>
+                </tr>
+            </tbody>
+
+        </table>
+
+    </div>
+</div>
